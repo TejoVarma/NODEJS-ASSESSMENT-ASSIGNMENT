@@ -1,0 +1,37 @@
+<div id="table-container" >
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Profession</th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+    <form action="/user/add">
+        <button type="submit">New User</button>
+    </form>
+</div>
+
+<script>
+    let tbody = document.getElementById("table-body");
+    let arr = ["name", "email", "age", "city", "profession"];
+    const users = fetch("/allUser");
+    users.then(res => res.json())
+    .then(data => {
+        data.forEach(user => {
+            let tr = document.createElement("tr");
+            arr.forEach(field => {
+                let td = document.createElement("td");
+                td.append(user[field]);
+                tr.append(td);
+            })
+            tbody.append(tr);
+        });
+    })
+</script>
